@@ -1,8 +1,8 @@
-# medium-inator
+# mediuminator
 
 Look at Medium through the lens of Twitter.
 
-medium-inator works by listening to a [filtered Twitter
+mediuminator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
 `medium.com` urls. When tweets are found, the medium url is identified 
 (possibly via link-shortening) which is then used to extract relevant metadata 
@@ -12,7 +12,7 @@ get at it.
 
 ## The App
 
-medium-inator can probably start out as a single page app that displays 
+mediuminator can probably start out as a single page app that displays 
 trending Medium stories. The stories will be listed by the number of times
 they've been mentioned on Twitter. Each story can use the author, collection, 
 publication date and image url. The default view will be for trending stories 
