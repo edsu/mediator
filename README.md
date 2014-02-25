@@ -2,8 +2,6 @@
 
 Look at Medium through the lens of Twitter.
 
-## Entities
-
 medium-inator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
 `medium.com`. When tweets are found, the medium url is identified (possibly via
@@ -28,7 +26,7 @@ Here's the data we can store.
 * title
 * description
 * image_url
-* collection_url
+* collection_url (optional)
 
 ### Collection
 
