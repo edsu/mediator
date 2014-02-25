@@ -1,6 +1,6 @@
 # medium-inator
 
-medium-inator is an app that looks at Medium through the lens of Twitter.
+Look at Medium through the lens of Twitter.
 
 ## Entities
 
