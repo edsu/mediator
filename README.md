@@ -4,12 +4,27 @@ Look at Medium through the lens of Twitter.
 
 medium-inator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
-`medium.com`. When tweets are found, the medium url is identified (possibly via
-link-shortening) and is used to extract relevant metadata from Medium pages.
-Medium have done a nice job with their meta tags, so this shouldn't be too
-tough.
+`medium.com` urls. When tweets are found, the medium url is identified 
+(possibly via link-shortening) which is then used to extract relevant metadata 
+from Medium pages, which is then saved off in the database.  Medium have done 
+a nice job with their meta tags, so we could probably use an html5 parser to 
+get at it.
 
-Here's the data we can store.
+## The App
+
+medium-inator can probably start out as a single page app that displays 
+trending Medium stories. The stories will be listed by the number of times
+they've been mentioned on Twitter. Each story can use the author, collection, 
+publication date and image url. The default view will be for trending stories 
+in the last hour, but we should be able to add a control to switch to day or 
+week.
+
+It might also be fun to display what collections and users are trending, and 
+how stories are being referenced from multiple collections.
+
+## The Database
+
+Here's the data we should be able to store:
 
 ### Tweet
 
@@ -44,8 +59,6 @@ Here's the data we can store.
 
 * **short_url**
 * long_url
-
-## Questions
 
 While most object-store dbs will handle this sort of metadata (dynamodb,
 mongo, redis, etc) a big part of this app is showing what's happening
