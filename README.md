@@ -15,7 +15,7 @@ Here's the data we can store.
 
 ### Tweet
 
-* **tweet_id**
+* **url**
 * text
 * story_url
 * created
@@ -37,11 +37,12 @@ Here's the data we can store.
 
 ### User
 
+* **url**
 * name
 * description
 * image_url
 
-## ShortUrl
+### ShortUrl
 
 * **short_url**
 * long_url
