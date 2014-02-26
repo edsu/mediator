@@ -20,6 +20,8 @@ control allows you to switch to daily and weekly views.
 It might also be fun to display what collections and users are trending, and how 
 stories are being referenced from multiple collections.
 
+And, of course, it would be nice to display the updates in realtime.
+
 ## Models
 
 Here's the data we should be able to store (object keys are in bold):
