@@ -61,6 +61,4 @@ Here's the data we should be able to store (object keys are in bold):
 ## Time Series Data
 
 TODO: need to come up with a scheme for modeling tweets and stories so that we
-can report out top stories by the number of times they have been tweeted.
-
-
+can efficiently report out top stories by the number of times they have been tweeted.
