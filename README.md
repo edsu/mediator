@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/edsu/mediuminator.png)](http://travis-ci.org/edsu/mediuminator)
 
-mediuminator works by listening to a [filtered Twitter stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for `medium.com` urls. When tweets are found, the medium url is identified which is then used to extract relevant metadata from Medium pages, which is then saved off in the database.  Medium have done a nice job with their meta tags, so we could probably use an html5 parser to get at it.
+mediuminator works by listening to a [filtered Twitter stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for `medium.com` urls. When tweets are found, the medium url is used to extract relevant metadata from Medium pages, which is then saved off in the database.  Medium have done a nice job with their meta tags, so we could probably use an html5 parser to get at it.
 
 ## App
 
