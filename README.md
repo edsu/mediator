@@ -5,9 +5,9 @@
 mediator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
 `medium.com` urls. When tweets are found, the medium url is used to extract
-relevant metadata from the Medium page, which is then saved off in the database.
-Medium have done a nice job with their HTML metadata so this isn't as bad 
-as it sounds.
+story, author and collection metadata from the Medium page, which is then 
+saved off in the database. Medium have done a nice job with their HTML 
+metadata so this isn't as bad as it sounds.
 
 ## App
 
@@ -31,7 +31,13 @@ Here's the data we should be able to store (object keys are in bold):
 * text
 * story_url
 * created
-* user_url (twitter.com url)
+* author (TwitterUser)
+
+### TwitterUser
+
+* **url**
+* name
+* avatar_url
 
 ### Story
 
@@ -40,16 +46,17 @@ Here's the data we should be able to store (object keys are in bold):
 * title
 * description
 * image_url
-* collection_url (optional)
+* author (MediumUser)
+* collection (optional)
 
 ### Collection
 
 * **url**
 * title
 
-### User
+### MediumUser
 
-* **url** (the medium.com url)
+* **url**
 * name
 * description
 * image_url
