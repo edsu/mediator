@@ -17,7 +17,7 @@ control allows you to switch to daily and weekly views.
 It might also be fun to display what collections and users are trending, and how 
 stories are being referenced from multiple collections.
 
-## Data
+## Models
 
 Here's the data we should be able to store (object keys are in bold):
 
@@ -55,6 +55,9 @@ Here's the data we should be able to store (object keys are in bold):
 * **short_url**
 * long_url
 
-While most object-store dbs will handle this sort of metadata (dynamodb,
-mongo, redis, etc) a big part of this app is showing what's happening
-over time, so do we need to think about time-series data differently?
+## Time Series Data
+
+TODO: need to come up with a scheme for modeling tweets and stories so that we
+can report out top stories by the number of times they have been tweeted.
+
+
