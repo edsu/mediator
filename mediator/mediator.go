@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 
-	"github.com/edsu/mediuminator"
+	"github.com/edsu/mediator"
 )
 
 func main() {
@@ -13,5 +13,5 @@ func main() {
 	accessSecret := flag.String("access-secret", "", "access token secret")
 	flag.Parse()
 
-	mediuminator.Tweets(*consumerKey, *consumerSecret, *accessToken, *accessSecret)
+	mediator.Tweets(*consumerKey, *consumerSecret, *accessToken, *accessSecret)
 }
