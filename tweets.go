@@ -1,4 +1,4 @@
-package mediuminator
+package mediator
 
 import (
 	"fmt"

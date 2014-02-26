@@ -1,8 +1,8 @@
-# mediuminator
+# mediator
 
-[![Build Status](https://secure.travis-ci.org/edsu/mediuminator.png)](http://travis-ci.org/edsu/mediuminator)
+[![Build Status](https://secure.travis-ci.org/edsu/mediator.png)](http://travis-ci.org/edsu/medinator)
 
-mediuminator works by listening to a [filtered Twitter
+mediator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
 `medium.com` urls. When tweets are found, the medium url is used to extract
 relevant metadata from the Medium page, which is then saved off in the database.
@@ -11,7 +11,7 @@ as it sounds.
 
 ## App
 
-mediuminator is a single page app that displays trending Medium stories. The
+mediator is a single page app that displays trending Medium stories. The
 stories are listed by the number of times they've been mentioned on Twitter. The
 display of each story can use the author, collection, publication date and image
 url. The default view will be for trending stories in the last hour, but a
