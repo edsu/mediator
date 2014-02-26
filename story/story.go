@@ -9,7 +9,7 @@ import (
 type Story struct {
 	Description string
 	Title       string
-	Url         string
+	Url         string `db:"HASH"`
 	Author      string
 	ImageUrl    string
 }
