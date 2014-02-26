@@ -8,9 +8,14 @@ mediuminator works by listening to a [filtered Twitter stream](https://dev.twitt
 
 ## App
 
-mediuminator can probably start out as a single page app that displays trending Medium stories. The stories will be listed by the number of times they've been mentioned on Twitter. Each story can use the author, collection, publication date and image url. The default view will be for trending stories in the last hour, but we should be able to add a control to switch to day or week.
+mediuminator is a single page app that displays trending Medium stories. The
+stories are listed by the number of times they've been mentioned on Twitter. The
+display of each story can use the author, collection, publication date and image
+url. The default view will be for trending stories in the last hour, but a
+control allows you to switch to daily and weekly views.
 
-It might also be fun to display what collections and users are trending, and how stories are being referenced from multiple collections.
+It might also be fun to display what collections and users are trending, and how 
+stories are being referenced from multiple collections.
 
 ## Data
 
@@ -22,7 +27,7 @@ Here's the data we should be able to store (object keys are in bold):
 * text
 * story_url
 * created
-* user_url
+* user_url (twitter.com url)
 
 ### Story
 
@@ -40,7 +45,7 @@ Here's the data we should be able to store (object keys are in bold):
 
 ### User
 
-* **url**
+* **url** (the medium.com url)
 * name
 * description
 * image_url

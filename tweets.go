@@ -20,10 +20,14 @@ func Tweets(consumerKey string, consumerSecret string, accessToken string, acces
 				if !strings.Contains(*url.ExpandedUrl, "medium.com") {
 					continue
 				}
+
+				story := NewStory(*url.ExpandedUrl)
+
+				// TODO: create a Tweet here instead of doing this output
 				tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
 				fmt.Println(tweetUrl, tweet.Text, *url.ExpandedUrl)
-				story := NewStory(*url.ExpandedUrl)
-				fmt.Println(story.String())
+				fmt.Printf("%#v\n", story)
+				fmt.Println()
 			}
 		}
 	}
