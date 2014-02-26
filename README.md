@@ -29,8 +29,8 @@ Here's the data we should be able to store (object keys are in bold):
 
 * **url**
 * text
-* story_url
 * created
+* story (Story)
 * author (TwitterUser)
 
 ### TwitterUser
@@ -47,12 +47,7 @@ Here's the data we should be able to store (object keys are in bold):
 * description
 * image_url
 * author (MediumUser)
-* collection (optional)
-
-### Collection
-
-* **url**
-* title
+* collection (Collection)
 
 ### MediumUser
 
@@ -61,10 +56,11 @@ Here's the data we should be able to store (object keys are in bold):
 * description
 * image_url
 
-### ShortUrl
+### Collection
 
-* **short_url**
-* long_url
+* **url**
+* title
+* description
 
 ## Time Series Data
 
