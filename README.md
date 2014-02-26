@@ -2,29 +2,17 @@
 
 Look at Medium through the lens of Twitter.
 
-mediuminator works by listening to a [filtered Twitter
-stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
-`medium.com` urls. When tweets are found, the medium url is identified 
-(possibly via link-shortening) which is then used to extract relevant metadata 
-from Medium pages, which is then saved off in the database.  Medium have done 
-a nice job with their meta tags, so we could probably use an html5 parser to 
-get at it.
+mediuminator works by listening to a [filtered Twitter stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for `medium.com` urls. When tweets are found, the medium url is identified which is then used to extract relevant metadata from Medium pages, which is then saved off in the database.  Medium have done a nice job with their meta tags, so we could probably use an html5 parser to get at it.
 
-## The App
+## App
 
-mediuminator can probably start out as a single page app that displays 
-trending Medium stories. The stories will be listed by the number of times
-they've been mentioned on Twitter. Each story can use the author, collection, 
-publication date and image url. The default view will be for trending stories 
-in the last hour, but we should be able to add a control to switch to day or 
-week.
+mediuminator can probably start out as a single page app that displays trending Medium stories. The stories will be listed by the number of times they've been mentioned on Twitter. Each story can use the author, collection, publication date and image url. The default view will be for trending stories in the last hour, but we should be able to add a control to switch to day or week.
 
-It might also be fun to display what collections and users are trending, and 
-how stories are being referenced from multiple collections.
+It might also be fun to display what collections and users are trending, and how stories are being referenced from multiple collections.
 
-## The Database
+## Data
 
-Here's the data we should be able to store:
+Here's the data we should be able to store (object keys are in bold):
 
 ### Tweet
 
