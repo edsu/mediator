@@ -17,10 +17,9 @@ display of each story can use the author, collection, publication date and image
 url. The default view will be for trending stories in the last hour, but a
 control allows you to switch to daily and weekly views.
 
-It might also be fun to display what collections and users are trending, and how 
-stories are being referenced from multiple collections.
-
-And, of course, it would be nice to display the updates in realtime.
+It might also be fun to display what collections and users are trending, and 
+how stories are being referenced from multiple collections. And, of course, 
+it would be nice to display the updates in realtime. :cake:
 
 ## Models
 
