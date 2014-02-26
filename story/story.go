@@ -1,4 +1,4 @@
-package mediator
+package story
 
 import (
 	"log"
