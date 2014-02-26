@@ -1,24 +1,14 @@
-package main
+package mediuminator
 
 import (
-	"flag"
 	"fmt"
-	"github.com/darkhelmet/twitterstream"
 	"log"
 	"strings"
+
+	"github.com/darkhelmet/twitterstream"
 )
 
-func main() {
-	consumerKey := flag.String("consumer-key", "", "consumer key")
-	consumerSecret := flag.String("consumer-secret", "", "consumer secret")
-	accessToken := flag.String("access-token", "", "access token")
-	accessSecret := flag.String("access-secret", "", "access token secret")
-	flag.Parse()
-
-	listenForTweets(*consumerKey, *consumerSecret, *accessToken, *accessSecret)
-}
-
-func listenForTweets(consumerKey string, consumerSecret string, accessToken string, accessSecret string) {
+func Tweets(consumerKey string, consumerSecret string, accessToken string, accessSecret string) {
 	twitter := twitterstream.NewClient(consumerKey, consumerSecret, accessToken, accessSecret)
 	conn, err := twitter.Track("medium com")
 	if err != nil {
@@ -32,6 +22,8 @@ func listenForTweets(consumerKey string, consumerSecret string, accessToken stri
 				}
 				tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
 				fmt.Println(tweetUrl, tweet.Text, *url.ExpandedUrl)
+				story := NewStory(*url.ExpandedUrl)
+				fmt.Println(story.String())
 			}
 		}
 	}
