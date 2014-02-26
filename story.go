@@ -26,7 +26,7 @@ func NewStory(mediumUrl string) Story {
 	story.Url, _ = doc.Find("link[rel=\"canonical\"]").Attr("href")
 	story.Title = doc.Find("title").Text()
 	story.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
-	// TODO: there can be more than one rel="author"
+	// TODO: there can be more than one rel="author", we (minimally) want the medium.com one
 	story.Author, _ = doc.Find("link[rel=\"author\"]").Attr("href")
 	story.ImageUrl, _ = doc.Find("meta[property=\"og:image\"]").Attr("content")
 	return story
