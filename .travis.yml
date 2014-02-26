@@ -1,6 +1,6 @@
 language: go
 script:
-  - go list -f '{{range .XTestImports}}{{.}}{{"\n"}}{{end}}' ./... | xargs go get
+  #- go list -f '{{range .XTestImports}}{{.}}{{"\n"}}{{end}}' ./... | xargs go get
   - go test -v
 go:
   - 1.2
