@@ -1,0 +1,26 @@
+{{define "html"}}<!DOCTYPE html>
+<html lang="en" ng-app="MediatorApp">
+  <head>
+    <script src="/js/mediator.js"></script>
+    <meta charset="utf-8">
+    <title>Mediator</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link href="/css/mediator.min.css" rel="stylesheet">
+  </head>
+  <body>
+    <div id="brand"></div>
+    <div ng-controller="MediatorCtrl">
+      <ul class="stories" class="list-group">
+	<li ng-repeat="story in stories" class="list-group-item">
+	  <h4 class="list-group-item-heading">[[story.Story.Title]]</h4>
+	  <p class="list-group-item-text">[[story.Story.Description]]</p>
+	  <p class="list-group-item-text">[[story.Count]]</p>
+	</li>
+      </ul>
+    </div>
+    <footer>
+      <p class="text-muted credit">Glyphicons by <a href="http://glyphicons.com">GLYPHICONS</a>.</p>
+    </footer>
+  </body>
+</html>{{end}}
+
