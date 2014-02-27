@@ -163,7 +163,7 @@ var Root *string
 
 func main() {
 	Address := flag.String("address", ":9999", "http service address")
-	Root = flag.String("root", ".", "...")
+	Root = flag.String("root", "dist", "...")
 	consumerKey := os.Getenv("TWITTER_CONSUMER_KEY")
 	consumerSecret := os.Getenv("TWITTER_CONSUMER_SECRET")
 	accessToken := os.Getenv("TWITTER_ACCESS_TOKEN")
