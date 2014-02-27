@@ -69,6 +69,7 @@ func main() {
 
 func Tweets(consumerKey string, consumerSecret string, accessToken string, accessSecret string) {
 	twitter := twitterstream.NewClient(consumerKey, consumerSecret, accessToken, accessSecret)
+again:
 	conn, err := twitter.Track("medium com")
 	if err != nil {
 		log.Fatal("unable to connect to twitter", err)
@@ -105,6 +106,7 @@ func Tweets(consumerKey string, consumerSecret string, accessToken string, acces
 		} else {
 			log.Println("err: ", err)
 			time.Sleep(time.Second)
+			goto again
 		}
 	}
 }
