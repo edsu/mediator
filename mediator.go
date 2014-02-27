@@ -164,16 +164,17 @@ var Root *string
 func main() {
 	Address := flag.String("address", ":9999", "http service address")
 	Root = flag.String("root", ".", "...")
-	consumerKey := flag.String("consumer-key", "", "consumer key")
-	consumerSecret := flag.String("consumer-secret", "", "consumer secret")
-	accessToken := flag.String("access-token", "", "access token")
-	accessSecret := flag.String("access-secret", "", "access token secret")
+	consumerKey := os.Getenv("TWITTER_CONSUMER_KEY")
+	consumerSecret := os.Getenv("TWITTER_CONSUMER_SECRET")
+	accessToken := os.Getenv("TWITTER_ACCESS_TOKEN")
+	accessSecret := os.Getenv("TWITTER_ACCESS_SECRET")
+
 	flag.Parse()
 
 	h := NewHub()
 	go h.run()
 
-	go Tweets(*consumerKey, *consumerSecret, *accessToken, *accessSecret, h.In)
+	go Tweets(consumerKey, consumerSecret, accessToken, accessSecret, h.In)
 
 	static := http.Dir(path.Join(*Root, "static/"))
 

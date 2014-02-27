@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# sample script to set up environment and run mediator
+# you'll need to fill in the blanks before things will work
+
+export TWITTER_CONSUMER_KEY=''
+export TWITTER_CONSUMER_SECRET=''
+export TWITTER_ACCESS_TOKEN=''
+export TWITTER_ACCESS_SECRET=''
+
+export AWS_ACCESS_KEY=''
+export AWS_SECRET_KEY=''
+
+go run mediator.go 
