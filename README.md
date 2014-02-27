@@ -66,3 +66,16 @@ Here's the data we should be able to store (object keys are in bold):
 
 TODO: need to come up with a scheme for modeling tweets and stories so that we
 can efficiently report out top stories by the number of times they have been tweeted.
+
+## Install
+
+### grunt and bower
+
+	sudo npm install -g grunt-cli
+	sudo npm install -g bower
+
+### mediator
+
+    npm install
+	bower install
+	grunt
