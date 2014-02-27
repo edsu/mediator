@@ -11,13 +11,13 @@
     <div id="brand"></div>
     <div ng-controller="MediatorCtrl">
       <ul class="stories" class="list-group">
-	<li ng-repeat="story in stories" class="list-group-item">
-    <h4 class="list-group-item-heading">
-      <a href="[[story.Story.Url]]">[[story.Story.Title]]</a>
-    </h4>
-	  <p class="list-group-item-text">[[story.Story.Description]]</p>
-	  <p class="list-group-item-text">[[story.Count]]</p>
-	</li>
+        <li ng-repeat="story in stories | orderBy:'Count':true" class="list-group-item">
+          <h4 class="list-group-item-heading">
+            <a href="[[story.Story.Url]]">[[story.Story.Title]]</a>
+          </h4>
+          <p class="list-group-item-text">[[story.Story.Description]]</p>
+          <p class="list-group-item-text">[[story.Count]]</p>
+        </li>
       </ul>
     </div>
     <footer>

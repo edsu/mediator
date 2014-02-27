@@ -13,7 +13,9 @@ var myModule = angular.module('MediatorApp', ['ui.bootstrap'], function ($interp
 });
 
 function MediatorCtrl($scope, $timeout) {
-    $scope.stories = {};
+    $scope.stories = [];
+    $scope.story = {};
+    $scope.storyCounts = {};
     $scope.errors = [];
     $scope.connection = null;
     $scope.messages = [];
@@ -47,9 +49,13 @@ function MediatorCtrl($scope, $timeout) {
             $scope.$apply(function () {
                 var msg = JSON.parse(e.data);
                 if ("Tweet" in msg) {
-                    $scope.stories[msg.Tweet.Story] = {"Story": msg.Story, "Count": msg.Count};
+                    $scope.storyCounts[msg.Story.Url] = msg.Count;
+                    $scope.story[msg.Story.Url] = msg.Story;
+                    $scope.stories = [];
+                    $.each($scope.storyCounts, function (k, v) {
+                        $scope.stories.unshift({"Story": $scope.story[k], "Count": v});
+                    });
                 }
-                //$scope.displayMessage(msg);
             });
         };
     };
