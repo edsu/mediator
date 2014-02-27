@@ -20,7 +20,7 @@ import (
 
 	"code.google.com/p/go.net/websocket"
 	"github.com/darkhelmet/twitterstream"
-	"github.com/edsu/mediator/story"
+	"github.com/edsu/mediator/medium"
 	"github.com/eikeon/dynamodb"
 )
 
@@ -46,7 +46,7 @@ again:
 					continue
 				}
 
-				story := story.NewStory(*url.ExpandedUrl)
+				story := medium.NewStory(*url.ExpandedUrl)
 
 				if db != nil {
 					db.PutItem(storyTableName, db.ToItem(&story), nil)
@@ -111,7 +111,7 @@ func createTable(name string, i interface{}) {
 
 func init() {
 	createTable(tweetTableName, (*Tweet)(nil))
-	createTable(storyTableName, (*story.Story)(nil))
+	createTable(storyTableName, (*medium.Story)(nil))
 }
 
 type Message map[string]interface{}

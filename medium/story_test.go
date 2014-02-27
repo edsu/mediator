@@ -1,14 +1,14 @@
-package story_test
+package medium_test
 
 import (
-	"github.com/edsu/mediator/story"
 	"testing"
 
 	"github.com/bmizerany/assert"
+	"github.com/edsu/mediator/medium"
 )
 
 func TestStory(t *testing.T) {
-	story := story.NewStory("https://medium.com/life-at-obvious/b7d6d31b4cd0")
+	story := medium.NewStory("https://medium.com/life-at-obvious/b7d6d31b4cd0")
 	assert.Equal(t, story.Title, "A Medium-Sized Family — Life at Medium — Medium")
 	assert.Equal(t, story.Description, "A team that works and plays well together.")
 	assert.Equal(t, story.Url, "https://medium.com/jobs/b7d6d31b4cd0")
