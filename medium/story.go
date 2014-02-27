@@ -2,6 +2,7 @@ package medium
 
 import (
 	"log"
+	"strings"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -14,7 +15,7 @@ type Story struct {
 	ImageUrl    string
 }
 
-func NewStory(mediumUrl string) Story {
+func GetStory(mediumUrl string) Story {
 	var doc *goquery.Document
 	var e error
 	var story Story
@@ -24,6 +25,8 @@ func NewStory(mediumUrl string) Story {
 	}
 
 	story.Url, _ = doc.Find("link[rel=\"canonical\"]").Attr("href")
+	story.Url = strings.TrimRight(story.Url, "/")
+
 	story.Title = doc.Find("title").Text()
 	story.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
 	// TODO: there can be more than one rel="author", we (minimally) want the medium.com one

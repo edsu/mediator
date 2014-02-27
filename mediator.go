@@ -46,7 +46,7 @@ again:
 					continue
 				}
 
-				story := medium.NewStory(*url.ExpandedUrl)
+				story := medium.GetStory(*url.ExpandedUrl)
 
 				if db != nil {
 					db.PutItem(storyTableName, db.ToItem(&story), nil)
