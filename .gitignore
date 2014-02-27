@@ -3,3 +3,4 @@ mediator
 node_modules
 bower_components
 dist
+*.test
