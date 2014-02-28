@@ -61,7 +61,11 @@ func GetStory(mediumUrl string) (Story, error) {
 		}
 	})
 
-	story.Title = doc.Find("title").Text()
+	parts := strings.Split(doc.Find("title").Text(), "—")
+	if len(parts) > 0 {
+		story.Title = strings.TrimSpace(parts[0])
+	}
+
 	story.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
 	story.ImageUrl, _ = doc.Find("meta[property=\"og:image\"]").Attr("content")
 	story.Published, _ = doc.Find("meta[property=\"article:published_time\"]").Attr("content")
