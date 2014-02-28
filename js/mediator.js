@@ -14,8 +14,6 @@ var myModule = angular.module('MediatorApp', ['ngAnimate', 'ui.bootstrap'], func
 
 function MediatorCtrl($scope, $timeout) {
     $scope.stories = [];
-    $scope.story = {};
-    $scope.storyCounts = {};
     $scope.errors = [];
     $scope.connection = null;
     $scope.messages = [];
@@ -50,18 +48,18 @@ function MediatorCtrl($scope, $timeout) {
             $scope.$apply(function () {
                 var msg = JSON.parse(e.data);
                 if ("Tweet" in msg) {
-                    $scope.storyCounts[msg.Story.Url] = msg.Count;
-                    $scope.story[msg.Story.Url] = msg.Story;
                     var updated = false;
                     for (var i = 0; i < $scope.stories.length; i++) {
-                        if ($scope.stories[i].Story.Url == msg.Story.Url) {
+                        if ($scope.stories[i].Url == msg.Story.Url) {
                             $scope.stories[i].Count = msg.Count;
                             updated = true;
                             break;
                         }
                     }
                     if (updated === false) {
-                        $scope.stories.unshift({"Story": $scope.story[msg.Story.Url], "Count": msg.Count});
+                        var s = msg.Story;
+                        s.Count = msg.Count;
+                        $scope.stories.unshift(s);
                     }
                 }
             });

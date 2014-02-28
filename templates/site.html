@@ -12,8 +12,6 @@
     <div ng-controller="MediatorCtrl" class="container">
       <h1>Stories</h1>
       <p>
-        Search:
-        <input ng-model="query">
         Sort by:
         <select ng-model="orderProp">
           <option value="-Published">Date Published</option>
@@ -21,13 +19,13 @@
         </select>
       </p>
       <ul class="media-list">
-	<li class="story media" ng-repeat="story in stories | filter:query | orderBy:orderProp">
-	  <a ng-if="[[story.Story.Url]]" class="pull-left" href="[[story.Story.Url]]">
-	    <img class="media-object" ng-src="[[story.Story.ImageUrl]]" alt="...">
+	<li class="story media" ng-repeat="story in stories | orderBy:orderProp">
+	  <a ng-if="[[story.Url]]" class="pull-left" href="[[story.Url]]">
+	    <img class="media-object" ng-src="[[story.ImageUrl]]" alt="...">
 	  </a>
 	  <div class="media-body">
-	    <h4 class="media-heading"><a href="[[story.Story.Url]]">[[story.Story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
-	    <p>[[story.Story.Description]]</p>
+	    <h4 class="media-heading"><a href="[[story.Url]]">[[story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
+	    <p>[[story.Description]]</p>
 	  </div>
 	</li>
       </ul>
