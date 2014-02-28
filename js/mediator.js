@@ -19,6 +19,7 @@ function MediatorCtrl($scope, $timeout) {
     $scope.errors = [];
     $scope.connection = null;
     $scope.messages = [];
+    $scope.orderProp = '-Count';
 
     $scope.NewConnection = function() {
         var wsproto = "";
