@@ -25,7 +25,7 @@ module.exports = function(grunt) {
                 stripBanners: false
             },
             sitejs: {
-                src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/angularjs/index.js', 'bower_components/angular-ui-bootstrap/index.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'js/<%= bower.name %>.js'],
+                src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/angular/angular.min.js', 'bower_components/angular-animate/angular-animate.min.js', 'bower_components/angular-ui-bootstrap/index.js', 'bower_components/bootstrap/dist/js/bootstrap.min.js', 'js/<%= bower.name %>.js'],
                 dest: 'dist/static/js/<%= bower.name %>.js'
             }
         },

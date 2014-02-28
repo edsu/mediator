@@ -11,9 +11,9 @@
     <div id="brand"></div>
     <div ng-controller="MediatorCtrl">
       <ul class="media-list">
-	<li class="media" ng-repeat="story in stories | orderBy:'Count':true">
+	<li class="story media" ng-repeat="story in stories | orderBy:'Count':true">
 	  <a class="pull-left" href="[[story.Story.Url]]">
-	    <img class="media-object" src="[[story.Story.ImageUrl]]" alt="...">
+	    <img class="media-object" ng-src="[[story.Story.ImageUrl]]" alt="...">
 	  </a>
 	  <div class="media-body">
 	    <h4 class="media-heading"><a href="[[story.Story.Url]]">[[story.Story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>

@@ -3,3 +3,18 @@
 .media-object {
     width: 120px;
 }
+
+.story.ng-enter {
+  -webkit-animation:2s new-story;
+  animation:2s new-story;
+}
+
+@keyframes new-story {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-webkit-keyframes new-story {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
