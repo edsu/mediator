@@ -16,9 +16,11 @@ func TestStory(t *testing.T) {
 	assert.Equal(t, story.Author, "https://medium.com/@nmanekia5")
 	assert.Equal(t, story.ImageUrl, "https://d262ilb51hltx0.cloudfront.net/max/800/1*pUkoGS6ur5wLBN06LkPjFw.jpeg")
 	assert.Equal(t, story.Published, "2013-12-11T21:41:11.545Z")
+	assert.Equal(t, story.Collection, "https://medium.com/jobs")
 }
 
 func TestBadStoryUrl(t *testing.T) {
 	_, err := medium.GetStory("https://medium.com/@eikeon")
+	assert.NotEqual(t, err, nil)
 	assert.Equal(t, err.Error(), "invalid story url: https://medium.com/@eikeon")
 }

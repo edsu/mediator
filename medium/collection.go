@@ -7,7 +7,7 @@ import (
 )
 
 type Collection struct {
-	Url         string
+	Url         string `db:"HASH"`
 	Title       string
 	Description string
 	ImageUrl    string
