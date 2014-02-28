@@ -14,4 +14,5 @@ func TestStory(t *testing.T) {
 	assert.Equal(t, story.Url, "https://medium.com/jobs/b7d6d31b4cd0")
 	assert.Equal(t, story.Author, "https://medium.com/@nmanekia5")
 	assert.Equal(t, story.ImageUrl, "https://d262ilb51hltx0.cloudfront.net/max/800/1*pUkoGS6ur5wLBN06LkPjFw.jpeg")
+	assert.Equal(t, story.Published, "2013-12-11T21:41:11.545Z")
 }
