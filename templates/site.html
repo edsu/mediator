@@ -10,14 +10,16 @@
   <body>
     <div id="brand"></div>
     <div ng-controller="MediatorCtrl">
-      <ul class="stories" class="list-group">
-        <li ng-repeat="story in stories | orderBy:'Count':true" class="list-group-item">
-          <h4 class="list-group-item-heading">
-            <a href="[[story.Story.Url]]">[[story.Story.Title]]</a>
-          </h4>
-          <p class="list-group-item-text">[[story.Story.Description]]</p>
-          <p class="list-group-item-text">[[story.Count]]</p>
-        </li>
+      <ul class="media-list">
+	<li class="media" ng-repeat="story in stories | orderBy:'Count':true">
+	  <a class="pull-left" href="[[story.Story.Url]]">
+	    <img class="media-object" src="[[story.Story.ImageUrl]]" alt="...">
+	  </a>
+	  <div class="media-body">
+	    <h4 class="media-heading"><a href="[[story.Story.Url]]">[[story.Story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
+	    <p>[[story.Story.Description]]</p>
+	  </div>
+	</li>
       </ul>
     </div>
     <footer>
