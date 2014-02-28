@@ -8,7 +8,8 @@ import (
 )
 
 func TestUser(t *testing.T) {
-	user := medium.GetUser("https://medium.com/@ChrisRosche/")
+	user, err := medium.GetUser("https://medium.com/@ChrisRosche/")
+	assert.Equal(t, err, nil)
 	assert.Equal(t, user.Url, "https://medium.com/@ChrisRosche")
 	assert.Equal(t, user.Name, "Christopher Rosche")
 	assert.Equal(t, user.Description, "\u00a0Recovering Renaissance man: writer, consultant, former congressional staffer, and   journalist trying to make sense of it all in my first novel.")

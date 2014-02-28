@@ -1,7 +1,6 @@
 package medium
 
 import (
-	"log"
 	"net/url"
 	"strings"
 
@@ -17,13 +16,13 @@ type User struct {
 	TwitterUrl  string
 }
 
-func GetUser(mediumUrl string) User {
+func GetUser(mediumUrl string) (User, error) {
 	var doc *goquery.Document
 	var e error
 	var user User
 
 	if doc, e = goquery.NewDocument(mediumUrl); e != nil {
-		log.Fatal(e.Error())
+		return user, e
 	}
 
 	user.Url, _ = doc.Find("link[rel=\"canonical\"]").Attr("href")
@@ -48,5 +47,5 @@ func GetUser(mediumUrl string) User {
 		}
 	})
 
-	return user
+	return user, nil
 }

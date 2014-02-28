@@ -46,8 +46,17 @@ again:
 					continue
 				}
 
-				story := medium.GetStory(*url.ExpandedUrl)
-				mediumUser := medium.GetUser(story.Author)
+				story, err := medium.GetStory(*url.ExpandedUrl)
+				if err != nil {
+					log.Print(err)
+					continue
+				}
+
+				mediumUser, err := medium.GetUser(story.Author)
+				if err != nil {
+					log.Print(err)
+					continue
+				}
 
 				if db != nil {
 					db.PutItem(storyTableName, db.ToItem(&story), nil)
