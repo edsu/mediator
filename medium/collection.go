@@ -1,7 +1,6 @@
 package medium
 
 import (
-	"log"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -14,13 +13,13 @@ type Collection struct {
 	ImageUrl    string
 }
 
-func GetCollection(mediumUrl string) Collection {
+func GetCollection(mediumUrl string) (Collection, error) {
 	var doc *goquery.Document
 	var e error
 	var coll Collection
 
 	if doc, e = goquery.NewDocument(mediumUrl); e != nil {
-		log.Fatal(e.Error())
+		return coll, e
 	}
 
 	coll.Url, _ = doc.Find("link[rel=\"canonical\"]").Attr("href")
@@ -30,5 +29,5 @@ func GetCollection(mediumUrl string) Collection {
 	coll.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
 	coll.ImageUrl, _ = doc.Find("meta[property=\"og:image\"]").Attr("content")
 
-	return coll
+	return coll, nil
 }

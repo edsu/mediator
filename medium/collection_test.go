@@ -8,7 +8,8 @@ import (
 )
 
 func TestCollection(t *testing.T) {
-	coll := medium.GetCollection("https://medium.com/life-at-obvious/")
+	coll, err := medium.GetCollection("https://medium.com/life-at-obvious/")
+	assert.Equal(t, err, nil)
 	assert.Equal(t, coll.Title, "Life at Medium — Medium")
 	assert.Equal(t, coll.Url, "https://medium.com/life-at-obvious")
 	assert.Equal(t, coll.Description, "A unique experience")
