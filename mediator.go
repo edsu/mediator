@@ -47,9 +47,11 @@ again:
 				}
 
 				story := medium.GetStory(*url.ExpandedUrl)
+				mediumUser := medium.GetUser(story.Author)
 
 				if db != nil {
 					db.PutItem(storyTableName, db.ToItem(&story), nil)
+					db.PutItem(mediumUserTableName, db.ToItem(&mediumUser), nil)
 				}
 
 				tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
@@ -81,6 +83,7 @@ var db dynamodb.DynamoDB
 
 var tweetTableName string = "mediator-tweet"
 var storyTableName string = "mediator-story"
+var mediumUserTableName string = "mediator-medium-user"
 
 func createTable(name string, i interface{}) {
 	db = dynamodb.NewDynamoDB()
@@ -112,6 +115,7 @@ func createTable(name string, i interface{}) {
 func init() {
 	createTable(tweetTableName, (*Tweet)(nil))
 	createTable(storyTableName, (*medium.Story)(nil))
+	createTable(mediumUserTableName, (*medium.User)(nil))
 }
 
 type Message map[string]interface{}
