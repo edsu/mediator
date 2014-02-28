@@ -30,6 +30,7 @@ type Tweet struct {
 	Published   string
 	Story       string `db:"HASH"`
 	TwitterUser string
+	// TODO: record the Medium Collection that was referenced
 }
 
 func Tweets(consumerKey string, consumerSecret string, accessToken string, accessSecret string, out chan Message) {
@@ -63,6 +64,14 @@ again:
 					db.PutItem(mediumUserTableName, db.ToItem(&mediumUser), nil)
 				}
 
+				// not all stories are part of a collection
+				if story.Collection != "" {
+					collection, err := medium.GetCollection(story.Collection)
+					if err == nil && db != nil {
+						db.PutItem(collectionTableName, db.ToItem(&collection), nil)
+					}
+				}
+
 				tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
 				published := tweet.CreatedAt.Format(time.RFC3339Nano)
 				t := &Tweet{Url: tweetUrl, Text: tweet.Text, Published: published, Story: story.Url, TwitterUser: tweet.User.ScreenName}
@@ -93,6 +102,7 @@ var db dynamodb.DynamoDB
 var tweetTableName string = "mediator-tweet"
 var storyTableName string = "mediator-story"
 var mediumUserTableName string = "mediator-medium-user"
+var collectionTableName string = "mediator-collection"
 
 func createTable(name string, i interface{}) {
 	db = dynamodb.NewDynamoDB()
@@ -125,6 +135,7 @@ func init() {
 	createTable(tweetTableName, (*Tweet)(nil))
 	createTable(storyTableName, (*medium.Story)(nil))
 	createTable(mediumUserTableName, (*medium.User)(nil))
+	createTable(collectionTableName, (*medium.Collection)(nil))
 }
 
 type Message map[string]interface{}
