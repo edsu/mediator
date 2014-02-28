@@ -7,7 +7,7 @@
 
 })(jQuery);
 
-var myModule = angular.module('MediatorApp', ['ui.bootstrap'], function ($interpolateProvider) {
+var myModule = angular.module('MediatorApp', ['ngAnimate', 'ui.bootstrap'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
 });
@@ -51,10 +51,17 @@ function MediatorCtrl($scope, $timeout) {
                 if ("Tweet" in msg) {
                     $scope.storyCounts[msg.Story.Url] = msg.Count;
                     $scope.story[msg.Story.Url] = msg.Story;
-                    $scope.stories = [];
-                    $.each($scope.storyCounts, function (k, v) {
-                        $scope.stories.unshift({"Story": $scope.story[k], "Count": v});
-                    });
+                    var updated = false;
+                    for (var i = 0; i < $scope.stories.length; i++) {
+                        if ($scope.stories[i].Story.Url == msg.Story.Url) {
+                            $scope.stories[i].Count = msg.Count;
+                            updated = true;
+                            break;
+                        }
+                    }
+                    if (updated === false) {
+                        $scope.stories.unshift({"Story": $scope.story[msg.Story.Url], "Count": msg.Count});
+                    }
                 }
             });
         };
