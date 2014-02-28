@@ -13,6 +13,7 @@ type Story struct {
 	Url         string `db:"HASH"`
 	Author      string
 	ImageUrl    string
+	Published   string
 }
 
 func GetStory(mediumUrl string) Story {
@@ -32,5 +33,7 @@ func GetStory(mediumUrl string) Story {
 	// TODO: there can be more than one rel="author", we (minimally) want the medium.com one
 	story.Author, _ = doc.Find("link[rel=\"author\"]").Attr("href")
 	story.ImageUrl, _ = doc.Find("meta[property=\"og:image\"]").Attr("content")
+	story.Published, _ = doc.Find("meta[property=\"article:published_time\"]").Attr("content")
+
 	return story
 }

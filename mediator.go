@@ -27,7 +27,7 @@ import (
 type Tweet struct {
 	Url         string `db:"RANGE"`
 	Text        string
-	Created     string
+	Published   string
 	Story       string `db:"HASH"`
 	TwitterUser string
 }
@@ -53,8 +53,8 @@ again:
 				}
 
 				tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
-				created := tweet.CreatedAt.Format(time.RFC3339Nano)
-				t := &Tweet{Url: tweetUrl, Text: tweet.Text, Created: created, Story: story.Url, TwitterUser: tweet.User.ScreenName}
+				published := tweet.CreatedAt.Format(time.RFC3339Nano)
+				t := &Tweet{Url: tweetUrl, Text: tweet.Text, Published: published, Story: story.Url, TwitterUser: tweet.User.ScreenName}
 				if db != nil {
 					db.PutItem(tweetTableName, db.ToItem(t), nil)
 				}
