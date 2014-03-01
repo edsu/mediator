@@ -1,6 +1,6 @@
 # mediator
 
-[![Build Status](https://secure.travis-ci.org/edsu/mediator.png)](http://travis-ci.org/edsu/mediator)
+[![Build Status](https://secure.travis-ci.org/edsu/mediator.png)](http://travis-ci.org/edsu/mediator) [![node dev deps](https://david-dm.org/edsu/mediator/dev-status.png)](https://david-dm.org/edsu/mediator#dev-badge-embed=&info=devDependencies&view=table)
 
 mediator works by listening to a [filtered Twitter
 stream](https://dev.twitter.com/docs/api/1.1/post/statuses/filter) for
