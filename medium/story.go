@@ -66,8 +66,15 @@ func GetStory(mediumUrl string) (Story, error) {
 		story.Title = strings.TrimSpace(parts[0])
 	}
 
-	story.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
+	// stories that lack image headers seem to have broken urls as og:image
+	// metadata; they have a path that starts with double slashes ; ignore them
 	story.ImageUrl, _ = doc.Find("meta[property=\"og:image\"]").Attr("content")
+	u, err := url.Parse(story.ImageUrl)
+	if err == nil && strings.HasPrefix(u.Path, "//") {
+		story.ImageUrl = ""
+	}
+
+	story.Description, _ = doc.Find("meta[name=\"description\"]").Attr("content")
 	story.Published, _ = doc.Find("meta[property=\"article:published_time\"]").Attr("content")
 
 	return story, nil
