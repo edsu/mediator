@@ -10,7 +10,9 @@
   <body>
     <div id="brand"></div>
     <div ng-controller="MediatorCtrl" class="container">
-      <h1>Stories</h1>
+      <h1>A Medium Reader</h1>
+      <h4>A look at what Medium stories people are talking about in Twitter.</h4>
+      <hr>
       <p>
         Sort by:
         <select ng-model="orderProp">
@@ -19,15 +21,17 @@
         </select>
       </p>
       <ul class="media-list">
-	<li class="story media" ng-repeat="story in stories | orderBy:orderProp">
-	  <a class="pull-left" href="[[story.Url]]">
-	    <img class="media-object" ng-src="[[story.ImageUrl]]" alt="...">
-	  </a>
-	  <div class="media-body">
-	    <h4 class="media-heading"><a href="[[story.Url]]">[[story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
-	    <p>[[story.Description]]</p>
-	  </div>
-	</li>
+        <li class="story media" ng-repeat="story in stories | orderBy:orderProp">
+          <a class="pull-left" href="[[story.Url]]" ng-switch on="story.ImageUrl">
+            <img ng-switch-when="" class="media-object" src="/images/question.png" alt="...">
+            <img ng-switch-default class="media-object" ng-src="[[story.ImageUrl]]" alt="...">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><a href="[[story.Url]]">[[story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
+            <p>[[story.Description]]</p>
+            <p>[[story.Published | date:'medium']]</p>
+          </div>
+        </li>
       </ul>
     </div>
     <div class="container">
@@ -37,4 +41,3 @@
     </div>
   </body>
 </html>{{end}}
-
