@@ -64,6 +64,9 @@ Here's the data we should be able to store (object keys are in bold):
 
 ## Time Series Data
 
+Each  goes into a DynamoDB table named `mediator_` chunked by hour and
+by day to allow stories to be looked up. 
+
 TODO: need to come up with a scheme for modeling tweets and stories so that we
 can efficiently report out top stories by the number of times they have been tweeted.
 
