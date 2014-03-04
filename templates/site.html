@@ -10,13 +10,11 @@
   <body>
     <div id="brand"></div>
     <div ng-controller="MediatorCtrl" class="container">
-      <h1>A Medium Reader</h1>
-      <h4>A look at what Medium stories people are talking about in Twitter.</h4>
-      <hr>
-      <p>
+      <h1>A Medium Reader <small>See what Medium stories people are talking about on Twitter.</small></h1>
+      <p class="options">
         Sort by:
         <select ng-model="orderProp">
-          <option value="-LastMentioned">Date Last Mention</option>          
+          <option value="-LastMentioned">Date Last Mentioned</option>
           <option value="-Published">Date Published</option>
           <option value="-Count"># of Mentions</option>
         </select>
@@ -30,14 +28,14 @@
           <div class="media-body">
             <h4 class="media-heading"><a href="[[story.Url]]">[[story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
             <p>[[story.Description]]</p>
-            <p>[[story.Published | date:'medium']]</p>
+            <p><small>Published:</small> [[story.Published | date:'medium']] <small>Mentioned:</small> [[story.Published | date:'medium']]</p>            
           </div>
         </li>
       </ul>
     </div>
     <div class="container">
       <footer>
-        <p class="text-muted credit">Glyphicons by <a href="http://glyphicons.com">GLYPHICONS</a>.</p>
+        <p class="text-muted credit">See <a href="https://github.com/edsu/mediator">Mediator</a> on github for the code behind this site.</p>
       </footer>
     </div>
   </body>
