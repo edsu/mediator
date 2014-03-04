@@ -17,7 +17,7 @@ function MediatorCtrl($scope, $timeout) {
     $scope.errors = [];
     $scope.connection = null;
     $scope.messages = [];
-    $scope.orderProp = '-Count';
+    $scope.orderProp = '-LastMentioned';
 
     $scope.NewConnection = function() {
         var wsproto = "";
@@ -52,6 +52,7 @@ function MediatorCtrl($scope, $timeout) {
                     for (var i = 0; i < $scope.stories.length; i++) {
                         if ($scope.stories[i].Url == msg.Story.Url) {
                             $scope.stories[i].Count = msg.Count;
+                            $scope.stories[i].LastMentioned = msg.Tweet.Published;
                             updated = true;
                             break;
                         }
@@ -59,6 +60,7 @@ function MediatorCtrl($scope, $timeout) {
                     if (updated === false) {
                         var s = msg.Story;
                         s.Count = msg.Count;
+                        s.LastMentioned = msg.Tweet.Published;
                         $scope.stories.unshift(s);
                     }
                 }
