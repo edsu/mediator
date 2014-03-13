@@ -1,0 +1,28 @@
+{{define "content"}}
+
+    <div ng-controller="MediatorCtrl" class="container">
+      <h1>A Medium Reader <small>See what Medium stories people are talking about on Twitter.</small></h1>
+      <p class="options">
+        Sort by:
+        <select ng-model="orderProp">
+          <option value="-LastMentioned">Date Last Mentioned</option>
+          <option value="-Published">Date Published</option>
+          <option value="-Count"># of Mentions</option>
+        </select>
+      </p>
+      <ul class="media-list">
+        <li class="story media" ng-repeat="story in stories | orderBy:orderProp">
+          <a class="pull-left" href="[[story.Url]]" ng-switch on="story.ImageUrl">
+            <img ng-switch-when="" class="media-object" src="/images/question.png" alt="...">
+            <img ng-switch-default class="media-object" ng-src="[[story.ImageUrl]]" alt="...">
+          </a>
+          <div class="media-body">
+            <h4 class="media-heading"><a href="[[story.Url]]">[[story.Title]]</a> <span class="badge">[[story.Count]]</span></h4>
+            <p>[[story.Description]]</p>
+            <p><small>Published:</small> [[story.Published | date:'medium']] <small>Mentioned:</small> [[story.LastMentioned | date:'medium']]</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+{{end}}

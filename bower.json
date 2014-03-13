@@ -2,9 +2,9 @@
   "name": "mediator",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "git://github.com/twbs/bootstrap.git#3.1.1",
-    "angular": "git://github.com/angular/bower-angular.git#1.2.13",
-    "angular-animate": "git@github.com:angular/bower-angular-animate.git#1.2.13",
+    "bootstrap": "git@github.com:twbs/bootstrap.git#3.1.1",
+    "angular": "git@github.com:angular/bower-angular.git#1.2.14",
+    "angular-animate": "git@github.com:angular/bower-angular-animate.git#1.2.14",
     "angular-ui-bootstrap": "https://raw.github.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-0.10.0.min.js"
   }
 }

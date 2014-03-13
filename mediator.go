@@ -1,18 +1,12 @@
 package main
 
 import (
-	"bytes"
-	"crypto/md5"
 	"flag"
 	"fmt"
-	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
-	"path"
-	"regexp"
 	"strings"
 	"sync"
 	"syscall"
@@ -22,6 +16,7 @@ import (
 	"github.com/darkhelmet/twitterstream"
 	"github.com/edsu/mediator/medium"
 	"github.com/eikeon/dynamodb"
+	"github.com/eikeon/web"
 )
 
 type Tweet struct {
@@ -169,17 +164,16 @@ func (h *Hub) Add(out chan Message) {
 	h.Unlock()
 }
 
-var PERM = regexp.MustCompile("[0-9a-f]{8}~")
+type Resource struct {
+	Route *web.Route
+}
 
-type templateData map[string]interface{}
+func GetResource(route *web.Route, vars web.Vars) web.Resource {
+	return &Resource{Route: route}
+}
 
-var site *template.Template
-
-func getSite() *template.Template {
-	if site == nil {
-		site = template.Must(template.ParseFiles(path.Join(*Root, "templates/site.html")))
-	}
-	return site
+func (r *Resource) Title() string {
+	return r.Route.Data["Title"]
 }
 
 var Address *string
@@ -187,6 +181,7 @@ var Root *string
 
 func main() {
 	Address := flag.String("address", ":9999", "http service address")
+	Host := flag.String("host", "localhost", "")
 	Root = flag.String("root", "dist", "...")
 	consumerKey := os.Getenv("TWITTER_CONSUMER_KEY")
 	consumerSecret := os.Getenv("TWITTER_CONSUMER_SECRET")
@@ -199,71 +194,6 @@ func main() {
 	go h.run()
 
 	go Tweets(consumerKey, consumerSecret, accessToken, accessSecret, h.In)
-
-	static := http.Dir(path.Join(*Root, "static/"))
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		d := templateData{}
-		if r.URL.Path == "/" {
-			d["Found"] = true
-		} else {
-			upath := r.URL.Path
-			if !strings.HasPrefix(upath, "/") {
-				upath = "/" + upath
-				r.URL.Path = upath
-			}
-			f, err := static.Open(path.Clean(upath))
-			if err == nil {
-				defer f.Close()
-				d, err1 := f.Stat()
-				if err1 != nil {
-					http.Error(w, "could not stat file", http.StatusInternalServerError)
-					return
-				}
-				url := r.URL.Path
-				if d.IsDir() {
-					if url[len(url)-1] != '/' {
-						http.Redirect(w, r, url+"/", http.StatusMovedPermanently)
-						return
-					}
-				} else {
-					if url[len(url)-1] == '/' {
-						http.Redirect(w, r, url[0:len(url)-1], http.StatusMovedPermanently)
-						return
-					}
-				}
-				if d.IsDir() {
-					w.WriteHeader(http.StatusNotFound)
-				} else {
-					ttl := int64(0)
-					if PERM.MatchString(path.Base(url)) {
-						ttl = int64(365 * 86400)
-					}
-					w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", ttl))
-					http.ServeContent(w, r, d.Name(), d.ModTime(), f)
-					return
-				}
-			} else {
-				w.WriteHeader(http.StatusNotFound)
-			}
-		}
-
-		d["Path"] = r.URL.Path
-
-		var bw bytes.Buffer
-		h := md5.New()
-		mw := io.MultiWriter(&bw, h)
-		err := getSite().ExecuteTemplate(mw, "html", d)
-		if err == nil {
-			w.Header().Set("ETag", fmt.Sprintf(`"%x"`, h.Sum(nil)))
-			w.Header().Set("Content-Length", fmt.Sprintf("%d", bw.Len()))
-			w.Header().Set("Content-Type", "text/html; charset=utf-8")
-			w.Write(bw.Bytes())
-		} else {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-		}
-
-	})
 
 	http.Handle("/messages", websocket.Handler(func(ws *websocket.Conn) {
 		in := make(chan Message)
@@ -288,6 +218,23 @@ func main() {
 		}
 		ws.Close()
 	}))
+
+	web.Root = Root
+
+	getters := web.Getters{
+		"home": GetResource,
+	}
+
+	if h, err := web.Handler(*Host, getters); err == nil {
+		http.Handle("/", h)
+		server := &http.Server{Addr: *Address}
+		log.Println("starting server on", server.Addr)
+		if err := server.ListenAndServe(); err != nil {
+			log.Println(err)
+		}
+	} else {
+		log.Println(err)
+	}
 
 	addr := *Address
 	log.Println("starting:", addr)
