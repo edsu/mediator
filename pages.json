@@ -1,4 +1,6 @@
-[
+{
+    "Host": "localhost",
+    "Routes": [
         {
             "Path": "/",
 	    "Name": "home",
@@ -7,5 +9,6 @@
 	        "Description": ""
             }
         }
-]
+    ]
+}
 
