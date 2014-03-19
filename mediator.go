@@ -36,7 +36,8 @@ func (r *Resource) Photo() string {
 
 type Site struct {
 	Name    string
-	Host_   string       `json:"Host"`
+	Host_   string `json:"Host"`
+	Static  string
 	Routes_ []*web.Route `json:"Routes"`
 }
 

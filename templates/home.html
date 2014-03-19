@@ -1,7 +1,10 @@
 {{define "content"}}
 
     <article ng-controller="MediatorCtrl" class="mediator">
-      <header>
+      <a href="http://github.com/edsu/mediator">
+        <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub">
+      </a>
+      <header {{if .Site}}style="background-image: url({{.Site.Static}}{{.Photo}});"{{end}}>
         <h1>Mediator <small>See what Medium stories people are talking about on Twitter.</small></h1>
       </header>
       <p class="options">

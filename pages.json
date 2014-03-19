@@ -6,7 +6,8 @@
 	    "Name": "home",
             "Data": {
                 "Title": "Home",
-	        "Description": ""
+	        "Description": "",
+	        "Photo": "/images/colock1.jpg"
             }
         }
     ]
