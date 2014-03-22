@@ -13,19 +13,38 @@ h1 small {
     width: 120px;
 }
 
-.story.ng-enter {
-  -webkit-animation:2s new-story;
-  animation:2s new-story;
-}
-
-@keyframes new-story {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.story.ng-enter, .story.ng-move {
+    .animation(2s new-story ease-in);
 }
 
 @-webkit-keyframes new-story {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  0% {
+      opacity: 0;
+      width: 0px;
+  }
+  50% {
+      opacity: 0;
+      height: 220px;
+  }
+  100% {
+      opacity: 1;
+      height: 220px;
+  }
+}
+
+@keyframes new-story {
+  0% {
+      opacity: 0;
+      width: 0px;
+  }
+  50% {
+      opacity: 0;
+      height: 220px;
+  }
+  100% {
+      opacity: 1;
+      height: 220px;
+  }
 }
 
 article {
@@ -118,4 +137,35 @@ article.mediator {
             width: 300px;
         }
     }
+
+    @-webkit-keyframes new-story {
+        0% {
+            opacity: 0;
+            width: 0px;
+        }
+        50% {
+            opacity: 0;
+            width: 320px;
+        }
+        100% {
+            opacity: 1;
+            width: 320px;
+        }
+    }
+
+    @keyframes new-story {
+        0% {
+            opacity: 0;
+            width: 0px;
+        }
+        50% {
+            opacity: 0;
+            width: 320px;
+        }
+        100% {
+            opacity: 1;
+            width: 320px;
+        }
+    }
+
 }
