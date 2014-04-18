@@ -2,10 +2,13 @@ package medium
 
 import (
 	"errors"
+	"log"
 	"net/url"
+	"sort"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
+	"github.com/eikeon/dynamodb"
 )
 
 type Story struct {
@@ -78,4 +81,24 @@ func GetStory(mediumUrl string) (Story, error) {
 	story.Published, _ = doc.Find("meta[property=\"article:published_time\"]").Attr("content")
 
 	return story, nil
+}
+
+type ByPublished []*Tweet
+
+func (a ByPublished) Len() int           { return len(a) }
+func (a ByPublished) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByPublished) Less(i, j int) bool { return a[i].Published < a[j].Published }
+
+func (s *Story) Tweets() (tweets []*Tweet) {
+	conditions := dynamodb.KeyConditions{"Story": {[]dynamodb.AttributeValue{{"S": s.Url}}, "EQ"}}
+	if qr, err := db.Query(tweetTableName, &dynamodb.QueryOptions{KeyConditions: conditions}); err == nil {
+		for i := 0; i < qr.Count; i++ {
+			item := db.FromItem(tweetTableName, qr.Items[i])
+			tweets = append(tweets, item.(*Tweet))
+		}
+	} else {
+		log.Println("query error:", err)
+	}
+	sort.Sort(sort.Reverse(ByPublished(tweets)))
+	return
 }
