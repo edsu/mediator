@@ -1,8 +1,11 @@
 package medium
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"time"
@@ -17,7 +20,26 @@ type Tweet struct {
 	Published   string
 	Story       string `db:"HASH"`
 	TwitterUser string
+	HTML        string
 	// TODO: record the Medium Collection that was referenced
+}
+
+func getHTML(url string) string {
+	r, err := http.Get("https://api.twitter.com/1/statuses/oembed.json?omit_script=true&url=" + url)
+	if err != nil {
+		return ""
+	}
+	defer r.Body.Close()
+	body, err := ioutil.ReadAll(r.Body)
+	var rr struct {
+		HTML string `json:"html"`
+	}
+	err = json.Unmarshal(body, &rr)
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+	return rr.HTML
 }
 
 type Mention struct {
@@ -73,7 +95,7 @@ func Tweets() <-chan Mention {
 
 					tweetUrl := "http://twitter.com/" + tweet.User.ScreenName + "/status/" + tweet.IdString
 					published := tweet.CreatedAt.Format(time.RFC3339Nano)
-					t := &Tweet{Url: tweetUrl, Text: tweet.Text, Published: published, Story: story.Url, TwitterUser: tweet.User.ScreenName}
+					t := &Tweet{Url: tweetUrl, Text: tweet.Text, Published: published, Story: story.Url, TwitterUser: tweet.User.ScreenName, HTML: getHTML(tweetUrl)}
 					if db != nil {
 						db.PutItem(tweetTableName, db.ToItem(t), nil)
 					}
@@ -106,7 +128,6 @@ var mediumUserTableName string = "mediator-medium-user"
 var collectionTableName string = "mediator-collection"
 
 func createTable(name string, i interface{}) {
-	db = dynamodb.NewDynamoDB()
 	if db != nil {
 		t, err := db.Register(name, i)
 		if err != nil {
@@ -133,8 +154,31 @@ func createTable(name string, i interface{}) {
 }
 
 func init() {
+	db = dynamodb.NewDynamoDB()
 	createTable(tweetTableName, (*Tweet)(nil))
 	createTable(storyTableName, (*Story)(nil))
 	createTable(mediumUserTableName, (*User)(nil))
 	createTable(collectionTableName, (*Collection)(nil))
+}
+
+func GetHTML() {
+	var last dynamodb.Key
+	for {
+		if qr, err := db.Scan(tweetTableName, &dynamodb.ScanOptions{ReturnConsumedCapacity: "TOTAL", ExclusiveStartKey: last}); err == nil {
+			for _, i := range qr.Items {
+				log.Println("tweet ITEM:", i)
+				t := db.FromItem(tweetTableName, i).(*Tweet)
+				if t.HTML == "" {
+					t.HTML = getHTML(t.Url)
+					db.PutItem(tweetTableName, db.ToItem(t), nil)
+				}
+			}
+			last = qr.LastEvaluatedKey
+			if last == nil {
+				break
+			}
+		} else {
+			log.Println("query error:", err)
+		}
+	}
 }
