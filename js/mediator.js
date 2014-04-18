@@ -89,4 +89,8 @@ function MediatorCtrl($scope, $timeout) {
         return when.substring(11,19);
     };
 
+    $scope.storyID = function(url) {
+        return url.replace("https://medium.com/", "");
+    };
+
 }
