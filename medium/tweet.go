@@ -25,7 +25,7 @@ type Tweet struct {
 }
 
 func getHTML(url string) string {
-	r, err := http.Get("https://api.twitter.com/1/statuses/oembed.json?omit_script=true&url=" + url)
+	r, err := http.Get("https://api.twitter.com/1/statuses/oembed.json?omit_script=true&hide_media=true&hide_thread&url=" + url)
 	if err != nil {
 		return ""
 	}
@@ -168,10 +168,8 @@ func GetHTML() {
 			for _, i := range qr.Items {
 				log.Println("tweet ITEM:", i)
 				t := db.FromItem(tweetTableName, i).(*Tweet)
-				if t.HTML == "" {
-					t.HTML = getHTML(t.Url)
-					db.PutItem(tweetTableName, db.ToItem(t), nil)
-				}
+				t.HTML = getHTML(t.Url)
+				db.PutItem(tweetTableName, db.ToItem(t), nil)
 			}
 			last = qr.LastEvaluatedKey
 			if last == nil {
